@@ -1,0 +1,4 @@
+train: ./train
+val: ./val
+nc: 2
+names: ["left_player", "right_player"]

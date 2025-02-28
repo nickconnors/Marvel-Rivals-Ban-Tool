@@ -1,0 +1,8 @@
+src/__pycache__/
+src/yolo11n.pt
+
+runs/
+tmp/
+train/
+val/
+mrbt_env/
