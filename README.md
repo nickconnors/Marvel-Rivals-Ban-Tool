@@ -26,9 +26,10 @@ Navigate to the src directory and run the following command:
 
 The script will wait until 'F8' is pressed. Press this key when all players' names are clearly visible. For example:
 
-![](https://imgur.com/a/13isgvg)
+![](readme_images/loading_screen_example.png)
 
 Shortly after you should start seeing each enemy player's top 3 heroes (if applicable).
+
 **Please Note:** The OCR has trouble picking up on non English characters and oddly formatted usernames (e.g., random spaces everywhere). Additionally, some users have opted to hide their stats. Obviously in these scenarios you will not be able to see the particular user's stats.
 
 ### Raw Player Stats
