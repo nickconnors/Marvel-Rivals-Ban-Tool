@@ -17,13 +17,13 @@ print("Waitng for the 'F8' key...")
 keyboard.wait('F8')
 print("'F8' press detected")
 
-# pyautogui.screenshot().save(temp_file_path)
+pyautogui.screenshot().save(temp_file_path)
 
 players = predict.get_players(temp_file_path)
 
 def get_stats(username):
     player = Player(username)
-    return player.get_best_heroes()
+    return player.get_best_heroes(season=3)
 
 results = []
 with concurrent.futures.ThreadPoolExecutor(max_workers=6, thread_name_prefix="thread") as executor:
