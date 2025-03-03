@@ -9,7 +9,7 @@ class Player:
         self.username_without_spaces = username.replace(" ", "%20")
         self.username = username
 
-    def get_career_stats(self, season=2):
+    def get_career_stats(self, season=3, ranked=True):
         chrome_options = Options()
         chrome_options.add_argument("--headless")
         chrome_options.add_argument("--disable-gpu")
@@ -20,7 +20,7 @@ class Player:
 
         driver = webdriver.Chrome(options=chrome_options)
 
-        driver.get(f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/{self.username_without_spaces}/segments/career?mode=all&season={str(season)}")
+        driver.get(f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/{self.username_without_spaces}/segments/career?mode={'competitive' if ranked  else 'all'}&season={str(season)}")
 
         pre_tag = driver.find_element(By.TAG_NAME, "pre")
         json_data = pre_tag.text
@@ -35,8 +35,8 @@ class Player:
         return stats
 
 
-    def get_best_heroes(self, season=2):
-        stats = self.get_career_stats(season=season)
+    def get_best_heroes(self, season=3, ranked=True):
+        stats = self.get_career_stats(season=season, ranked=ranked)
 
         try:
             segments = stats["data"]
