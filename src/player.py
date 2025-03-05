@@ -1,6 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import json
 
 
@@ -20,17 +22,21 @@ class Player:
 
         driver = webdriver.Chrome(options=chrome_options)
 
-        driver.get(f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/{self.username_without_spaces}/segments/career?mode={'competitive' if ranked  else 'all'}&season={str(season)}")
-
-        pre_tag = driver.find_element(By.TAG_NAME, "pre")
-        json_data = pre_tag.text
-
+        stats = {}
         try:
-            stats = json.loads(json_data)
-        except json.JSONDecodeError:
-            print("Error decoding JSON.")
+            driver.get(f"https://api.tracker.gg/api/v2/marvel-rivals/standard/profile/ign/{self.username_without_spaces}/segments/career?mode={'competitive' if ranked  else 'all'}&season={str(season)}")
 
-        driver.quit()
+            pre_tag = WebDriverWait(driver, 2).until(
+                EC.presence_of_element_located((By.TAG_NAME, "pre"))
+            )
+
+            json_data = pre_tag.text
+
+            stats = json.loads(json_data)
+
+            driver.quit()
+        except:
+           driver.quit()
 
         return stats
 
